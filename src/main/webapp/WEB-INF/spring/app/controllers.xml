@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+  <bean id="projectController"
+  	class="gitoscope.controller.ProjectController"
+	scope="request">
+    <property name="projectService" ref="projectServiceId" />
+  </bean>
+
+  <bean id="commitController"
+  	class="gitoscope.controller.CommitController"
+	scope="request">
+    <property name="projectService" ref="projectServiceId" />
+    <property name="commitService" ref="commitServiceId" />
+  </bean>
+
+  <bean id="treeBrowserController"
+  	class="gitoscope.controller.TreeBrowserController"
+	scope="request">
+    <property name="projectService" ref="projectServiceId" />
+    <property name="treeBrowserService" ref="treeBrowserServiceId" />
+  </bean>
+
+</beans>

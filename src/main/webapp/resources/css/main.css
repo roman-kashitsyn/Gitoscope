@@ -1,0 +1,23 @@
+/* common */
+body {
+	font-size: 12px;
+}
+
+/* common classes */
+.object-ref {
+	font-family: Monospace;
+}
+
+.number {
+	text-align: right;
+	font-family: Monospace;
+}
+
+.file-name {
+	font-family: Monospace;
+}
+
+/* commit browse */
+.full-message {
+	font-family: Monospace;
+}
