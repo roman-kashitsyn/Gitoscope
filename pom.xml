@@ -135,6 +135,11 @@
 			<id>jgit-repository</id>
 			<url>http://download.eclipse.org/jgit/maven</url>
 		</repository>
+		<repository>
+		        <id>repository.jboss.org</id>
+				<name>JBoss.org Maven repository</name>
+				<url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+		</repository>
 	</repositories>
 
 	<build>

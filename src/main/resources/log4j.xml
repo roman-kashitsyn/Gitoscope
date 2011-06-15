@@ -14,7 +14,7 @@
 
         <!-- Application Loggers -->
         <logger name="gitoscope.service">
-                <level value="info" />
+                <level value="fine" />
         </logger>
 
         <logger name="gitoscope.controller">

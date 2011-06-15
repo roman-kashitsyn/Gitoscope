@@ -3,6 +3,7 @@ package gitoscope.service;
 import java.util.*;
 import org.slf4j.*;
 import org.eclipse.jgit.lib.*;
+import org.eclipse.jgit.revwalk.filter.*;
 import org.eclipse.jgit.revwalk.*;
 import org.eclipse.jgit.api.*;
 
@@ -14,7 +15,6 @@ public class DefaultCommitService implements CommitService {
 	private static final Logger LOG =
 			LoggerFactory.getLogger(DefaultCommitService.class);
 
-	@Override
 	public Commit findById(Project project, String id) {
 		Commit commit = null;
 		AnyObjectId commitId;
@@ -45,4 +45,94 @@ public class DefaultCommitService implements CommitService {
 		return commit;
 	}
 
+	public List<Commit> searchCommits(Project project,
+									  int maxResults,
+									  Map<String, String> filter) {
+		try {
+			Repository repo = project.getRepository();
+			RevWalk revWalk = new RevWalk(repo);
+			if (maxResults <= 0) {
+				maxResults = Integer.MAX_VALUE;
+			}
+			setHeadAsStart(repo, revWalk);
+			setUpFilter(revWalk, filter);
+			
+			Iterator<RevCommit> revIterator = revWalk.iterator();
+			List<Commit> results = new LinkedList<Commit>();
+			while (revIterator.hasNext() && results.size() < maxResults) {
+				results.add(new Commit(revIterator.next()));
+			}
+
+			return results;
+		} catch (Exception e) {
+			LOG.error("error! ", e);
+			return Collections.EMPTY_LIST;
+		}
+	}
+
+	private void setHeadAsStart(Repository repo, RevWalk rw) {
+		try {
+			rw.markStart(getHead(repo));
+		} catch (Exception e) {
+			LOG.error("Unable to get repository HEAD");
+		}
+	}
+
+	private void setUpFilter(RevWalk rw, Map<String, String> filterMap) {
+		if (filterMap == null || filterMap.size() == 0) {
+			return;
+		}
+		Collection<RevFilter> filters = new LinkedList<RevFilter>();
+		String token = null;
+
+		token = filterMap.get("start");
+		if (token != null) {
+			try {
+				RevCommit start = getCommit(rw, token);
+				rw.markStart(start);
+			} catch (Exception e) {
+				LOG.error("Unable to mark commit as start", e);
+			}
+		}
+
+		token = filterMap.get("message");
+		if (token != null) {
+			filters.add(MessageRevFilter.create(token));
+		}
+
+		token = filterMap.get("author");
+		if (token != null) {
+			filters.add(AuthorRevFilter.create(token));
+		}
+
+		token = filterMap.get("committer");
+		if (token != null) {
+			filters.add(CommitterRevFilter.create(token));
+		}
+
+		if (filters.size() == 1) {
+			rw.setRevFilter(filters.iterator().next());
+		} else if (filters.size() > 1) {
+			rw.setRevFilter(AndRevFilter.create(filters));
+		}
+	}
+
+	private RevCommit getCommit(RevWalk rw, String id) {
+		RevCommit commit = null;
+		ObjectId commitId = null;
+		try {
+			LOG.info("Taking commit with id {}", id);
+			commitId = ObjectId.fromString(id);
+			commit = rw.lookupCommit(commitId);
+		} catch (Exception e) {
+			LOG.error("Invalid commit id [{}]", id);
+		}
+		return commit;
+	}
+
+	private RevCommit getHead(Repository repo) throws Exception {
+		RevWalk rw = new RevWalk(repo);
+		ObjectId id = repo.resolve(Constants.HEAD);
+		return rw.parseCommit(id);
+	}
 }
