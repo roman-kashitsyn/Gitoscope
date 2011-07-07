@@ -1,0 +1,21 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
+<form name="commit-search" method="GET">
+	<label for="author">
+		<spring:message code="commit.author"/>
+	</label>
+	<input name="author" value=""/>
+	<br/>
+	<label for="committer">
+		<spring:message code="commit.committer"/>
+	</label>
+	<input name="committer" value=""/>
+	<br/>
+	<label for="message">
+		<spring:message code="commit.message"/>
+	</label>
+	<input name="message" value=""/>
+	<br/>
+</form>

@@ -9,7 +9,7 @@
   <bean id="projectServiceId"
     class="gitoscope.service.FileRepositoryService"
 	scope="singleton">
-	<property name="baseDirectory" value="/home/roman/projects/git"/>
+	<property name="baseDirectory" value="/home/luyci/Projects/git"/>
   </bean>
 
   <bean id="commitServiceId"
