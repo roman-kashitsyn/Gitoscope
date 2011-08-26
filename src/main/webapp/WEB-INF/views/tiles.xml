@@ -1,98 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tiles-definitions PUBLIC
-	  "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
-	  "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 
 <tiles-definitions>
 
-  <definition name="project.list" extends="gitoscope.main.layout">
-    <put-attribute
-       name="title"
-       value="Project List"
-       type="string" />
-    <put-attribute
-       name="content"
-       value="/WEB-INF/views/list-projects.jsp"
-       type="template" />
-  </definition>
+    <definition name="project.list" extends="gitoscope.main.layout">
+        <put-attribute
+                name="title"
+                value="Project List"
+                type="string"/>
+        <put-attribute
+                name="content"
+                value="/WEB-INF/views/list-projects.jsp"
+                type="template"/>
+    </definition>
 
-  <definition name="project.not.found" extends="gitoscope.main.layout">
-    <put-attribute
-       name="title"
-       value="Project not found" type="string"/>
-    <put-attribute
-       name="content"
-       value="/WEB-INF/views/project-not-found.jsp"/>
-  </definition>
+    <definition name="project.not.found" extends="gitoscope.main.layout">
+        <put-attribute
+                name="title"
+                value="Project not found" type="string"/>
+        <put-attribute
+                name="content"
+                value="/WEB-INF/views/project-not-found.jsp"/>
+    </definition>
 
-  <definition name="project.show" extends="gitoscope.main.layout">
-    <put-attribute
-       name="title"
-       value="---project+++" type="string"/>
-    <put-attribute
-       name="content"
-       value="/WEB-INF/views/show-project.jsp"
-       type="template" />
-  </definition>
+    <definition name="project.show" extends="gitoscope.main.layout">
+        <put-attribute
+                name="title"
+                value="---project+++" type="string"/>
+        <put-attribute
+                name="content"
+                value="/WEB-INF/views/show-project.jsp"
+                type="template"/>
+    </definition>
 
-  <definition name="commit.show" extends="gitoscope.main.layout">
-    <put-attribute name="title"
-		   value="---commit+++"/>
-    <put-attribute name="content"
-		   value="/WEB-INF/views/show-commit.jsp"
-		   type="template"/>
-  </definition>
+    <definition name="commit.show" extends="gitoscope.main.layout">
+        <put-attribute name="title"
+                       value="---commit+++"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/views/show-commit.jsp"
+                       type="template"/>
+    </definition>
 
-  <definition name="commit.search" template="/WEB-INF/views/layouts/restful-search.jsp">
-    <put-attribute name="search-form"
-		   value="/WEB-INF/views/templates/search-commits-form.jsp"/>
-    <put-attribute name="search-result"
-		   value="/WEB-INF/views/templates/commit-list.jsp"/>
-  </definition>
+    <definition name="commit.search" template="/WEB-INF/views/layouts/restful-search.jsp">
+        <put-attribute name="search-form"
+                       value="/WEB-INF/views/templates/search-commits-form.jsp"/>
+        <put-attribute name="search-result"
+                       value="/WEB-INF/views/templates/commit-list.jsp"/>
+    </definition>
 
-  <definition name="commit.not.found" template="gitoscope.main.layout">
-    <put-attribute name="title"
-		   value="Commit not found" type="string"/>
-    <put-attribute name="content"
-		   value="/WEB-INF/views/commit-not-found.jsp"/>
-  </definition>
+    <definition name="commit.not.found" template="gitoscope.main.layout">
+        <put-attribute name="title"
+                       value="Commit not found" type="string"/>
+        <put-attribute name="content"
+                       value="/WEB-INF/views/commit-not-found.jsp"/>
+    </definition>
 
-  <definition name="tree.show" extends="gitoscope.main.layout">
-    <put-attribute
-       name="title"
-       value="---tree+++"/>
-    <put-attribute
-       name="content"
-       value="/WEB-INF/views/show-tree.jsp"
-       type="template"/>
-  </definition>
+    <definition name="tree.show" extends="gitoscope.main.layout">
+        <put-attribute
+                name="title"
+                value="---tree+++"/>
+        <put-attribute
+                name="content"
+                value="/WEB-INF/views/show-tree.jsp"
+                type="template"/>
+    </definition>
 
-  <definition name="tree.not.found" extends="gitoscope.main.layout">
-    <put-attribute
-       name="title"
-       value="Tree not found" type="string"/>
-    <put-attribute
-       name="content"
-       value="/WEB-INF/views/tree-not-found.jsp"/>
-  </definition>
+    <definition name="tree.not.found" extends="gitoscope.main.layout">
+        <put-attribute
+                name="title"
+                value="Tree not found" type="string"/>
+        <put-attribute
+                name="content"
+                value="/WEB-INF/views/tree-not-found.jsp"/>
+    </definition>
 
-  <definition name="blob.show" extends="gitoscope.main.layout">
-    <put-attribute
-       name="title"
-       value="---blob+++"/>
-    <put-attribute
-       name="content"
-       value="/WEB-INF/views/show-blob.jsp"
-       type="template"/>
-  </definition>
+    <definition name="blob.show" extends="gitoscope.main.layout">
+        <put-attribute
+                name="title"
+                value="---blob+++"/>
+        <put-attribute
+                name="content"
+                value="/WEB-INF/views/show-blob.jsp"
+                type="template"/>
+    </definition>
 
-  <definition name="blob.not.found" extends="gitoscope.main.layout">
-    <put-attribute
-       name="title"
-       value="Blob not found" type="string"/>
-    <put-attribute
-       name="content"
-       value="/WEB-INF/views/blob-not-found.jsp"/>
-  </definition>
+    <definition name="blob.not.found" extends="gitoscope.main.layout">
+        <put-attribute
+                name="title"
+                value="Blob not found" type="string"/>
+        <put-attribute
+                name="content"
+                value="/WEB-INF/views/blob-not-found.jsp"/>
+    </definition>
 
 </tiles-definitions>

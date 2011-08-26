@@ -1,31 +1,32 @@
 package gitoscope.domain;
 
-import java.util.Date;
+import org.eclipse.jgit.lib.Repository;
+
 import java.io.File;
-import org.eclipse.jgit.lib.*;
+import java.util.Date;
 
 public class Project {
 
-	public Project(Repository repository) {
-		this.repository = repository;
-	}
+    public Project(Repository repository) {
+        this.repository = repository;
+    }
 
-	public String getName() {
-		File baseDirectory = repository.getWorkTree();
-		return baseDirectory.getName();
-	}
+    public String getName() {
+        File baseDirectory = repository.getWorkTree();
+        return baseDirectory.getName();
+    }
 
-	public Person getOwner() {
-		return null;
-	}
+    public Person getOwner() {
+        return null;
+    }
 
-	public Date getLastModified() {
-		return new Date(repository.getDirectory().lastModified());
-	}
+    public Date getLastModified() {
+        return new Date(repository.getDirectory().lastModified());
+    }
 
-	public Repository getRepository() {
-		return repository;
-	}
+    public Repository getRepository() {
+        return repository;
+    }
 
-	private Repository repository;
+    private Repository repository;
 }

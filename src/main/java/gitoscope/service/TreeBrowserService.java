@@ -1,12 +1,14 @@
 package gitoscope.service;
 
+import gitoscope.domain.BrowseableObject;
+import gitoscope.domain.Project;
+
 import java.util.List;
-import gitoscope.domain.*;
 
 public interface TreeBrowserService {
 
-	List<BrowseableObject> listObjects(Project project, String treeId);
+    List<BrowseableObject> listObjects(Project project, String treeId);
 
-	String getBlobAsText(Project project, String blobId);
+    String getBlobAsText(Project project, String blobId);
 
 }
