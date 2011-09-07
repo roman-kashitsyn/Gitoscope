@@ -1,8 +1,9 @@
-package gitoscope.service;
+package gitoscope.service.impl;
 
 import gitoscope.domain.Commit;
 import gitoscope.domain.Project;
 import gitoscope.exception.ProjectNotFoundException;
+import gitoscope.service.ProjectService;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.LogCommand;
 import org.eclipse.jgit.lib.Repository;
@@ -22,11 +23,10 @@ public class FileRepositoryService implements ProjectService {
     public static final Logger LOG =
             LoggerFactory.getLogger(FileRepositoryService.class);
 
-    @Override
     public List<Project> listProjects() {
         if (!isValidDirectory(this.baseDirectory)) {
-            LOG.error("Base directory {} is not a valid directory", baseDirecotoryName());
-            return (List<Project>) Collections.EMPTY_LIST;
+            LOG.error("Base directory {} is not a valid directory", baseDirectoryName());
+            return Collections.emptyList();
         } else {
             List<Project> projectList = new ArrayList<Project>();
 
@@ -41,7 +41,6 @@ public class FileRepositoryService implements ProjectService {
         }
     }
 
-    @Override
     public Project findProjectByName(String projectName) {
         String projectDirPath = baseDirectory.getAbsolutePath() + "/" + projectName;
         File projectDir = new File(projectDirPath);
@@ -53,7 +52,6 @@ public class FileRepositoryService implements ProjectService {
         }
     }
 
-    @Override
     public List<Commit> listCommits(
             Project project,
             Map<String, Integer> paginateParams) {
@@ -67,6 +65,7 @@ public class FileRepositoryService implements ProjectService {
                 commits.add(new Commit(commit));
             }
         } catch (Exception e) {
+            LOG.error("Error during commit log iteration", e);
         }
 
         return commits;
@@ -98,10 +97,9 @@ public class FileRepositoryService implements ProjectService {
         } catch (Exception e) {
             return null;
         }
-
     }
 
-    private String baseDirecotoryName() {
+    private String baseDirectoryName() {
         if (baseDirectory != null) {
             return this.baseDirectory.getName();
         } else {

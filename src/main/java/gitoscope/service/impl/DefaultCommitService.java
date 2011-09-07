@@ -1,8 +1,9 @@
-package gitoscope.service;
+package gitoscope.service.impl;
 
 import gitoscope.domain.Commit;
 import gitoscope.domain.Project;
 import gitoscope.exception.CommitNotFoundException;
+import gitoscope.service.CommitService;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.LogCommand;
 import org.eclipse.jgit.lib.AnyObjectId;
@@ -73,7 +74,7 @@ public class DefaultCommitService implements CommitService {
             return results;
         } catch (Exception e) {
             LOG.error("error! ", e);
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
     }
 

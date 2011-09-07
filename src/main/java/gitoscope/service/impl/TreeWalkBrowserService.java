@@ -1,9 +1,10 @@
-package gitoscope.service;
+package gitoscope.service.impl;
 
 import gitoscope.domain.BrowseableObject;
 import gitoscope.domain.Project;
 import gitoscope.exception.BlobNotFoundException;
 import gitoscope.exception.TreeNotFoundException;
+import gitoscope.service.TreeBrowserService;
 import gitoscope.util.FileModeFormatter;
 import org.eclipse.jgit.lib.AnyObjectId;
 import org.eclipse.jgit.lib.ObjectId;
@@ -22,7 +23,6 @@ public class TreeWalkBrowserService implements TreeBrowserService {
     private static final Logger LOG =
             LoggerFactory.getLogger(TreeWalkBrowserService.class);
 
-    @Override
     public List<BrowseableObject> listObjects(Project project, String treeId) {
         AnyObjectId treeObjId;
         try {
@@ -64,7 +64,6 @@ public class TreeWalkBrowserService implements TreeBrowserService {
         return objects;
     }
 
-    @Override
     public String getBlobAsText(Project project, String blobId) {
         AnyObjectId blob;
         try {
