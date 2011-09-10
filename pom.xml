@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-<modelVersion>4.0.0</modelVersion>
-<groupId>gitoscope</groupId>
-  <artifactId>gitoscope</artifactId>
-  <packaging>war</packaging>
-  <version>0.1</version>
-  <name>gitoscope Maven Webapp</name>
-  <url>http://maven.apache.org</url>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>gitoscope</groupId>
+    <artifactId>gitoscope</artifactId>
+    <packaging>war</packaging>
+    <version>0.1</version>
+    <name>gitoscope Maven Webapp</name>
+    <url>http://maven.apache.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,13 +20,13 @@
     </properties>
 
 
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- View Dependencies -->
         <dependency>
@@ -36,12 +36,12 @@
             <type>jar</type>
         </dependency>
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>${jstl.version}</version>
-			<scope>runtime</scope>
-		</dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+            <scope>runtime</scope>
+        </dependency>
 
         <!-- Spring Dependencies -->
         <dependency>
@@ -78,21 +78,21 @@
             <scope>test</scope>
         </dependency>
 
-		<!-- JGit Core Library -->
-		<dependency>
-			<groupId>org.eclipse.jgit</groupId>
-			<artifactId>org.eclipse.jgit</artifactId>
-			<version>${jgit.version}</version>
-		</dependency>
+        <!-- JGit Core Library -->
+        <dependency>
+            <groupId>org.eclipse.jgit</groupId>
+            <artifactId>org.eclipse.jgit</artifactId>
+            <version>${jgit.version}</version>
+        </dependency>
 
-		<!-- Tiles -->
-		 <dependency>
-		 	<groupId>org.apache.tiles</groupId>
-		 	<artifactId>tiles-jsp</artifactId>
-		 	<version>${tiles.version}</version>
-		 </dependency>
+        <!-- Tiles -->
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-jsp</artifactId>
+            <version>${tiles.version}</version>
+        </dependency>
 
-		<!-- Logging -->
+        <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -128,47 +128,47 @@
         </dependency>
 
 
-	</dependencies>
+    </dependencies>
 
-	<repositories>
-		<repository>
-			<id>jgit-repository</id>
-			<url>http://download.eclipse.org/jgit/maven</url>
-		</repository>
-		<repository>
-		        <id>repository.jboss.org</id>
-				<name>JBoss.org Maven repository</name>
-				<url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
-		</repository>
-	</repositories>
+    <repositories>
+        <repository>
+            <id>jgit-repository</id>
+            <url>http://download.eclipse.org/jgit/maven</url>
+        </repository>
+        <repository>
+            <id>repository.jboss.org</id>
+            <name>JBoss.org Maven repository</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+        </repository>
+    </repositories>
 
-	<build>
-		<finalName>gitoscope</finalName>
+    <build>
+        <finalName>gitoscope</finalName>
 
-		<plugins>
-		<!-- Ensures we are compiling at 1.6 level -->
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>2.3.2</version>
-			<configuration>
-				<source>${java.version}</source>
-				<target>${java.version}</target>
-			</configuration>
-		</plugin>
+        <plugins>
+            <!-- Ensures we are compiling at 1.6 level -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
 
-		<!-- Tomcat plugin for embedded tomcat -->
-		<plugin>
-			<groupId>org.codehaus.mojo</groupId>
-			<artifactId>tomcat-maven-plugin</artifactId>
-			<version>1.1</version>
-			<configuration>
-				<server>localhost-tomcat</server>
-				<path>/${project.build.finalName}</path>
-			</configuration>
-		</plugin>
+            <!-- Tomcat plugin for embedded tomcat -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>tomcat-maven-plugin</artifactId>
+                <version>1.1</version>
+                <configuration>
+                    <server>localhost-tomcat</server>
+                    <path>/${project.build.finalName}</path>
+                </configuration>
+            </plugin>
 
-		</plugins>
-	</build>
+        </plugins>
+    </build>
 
 </project>
