@@ -9,21 +9,21 @@
     <bean id="projectController"
           class="gitoscope.controller.ProjectController"
           scope="request">
-        <property name="projectService" ref="projectServiceId"/>
+        <property name="projectService" ref="projectService"/>
     </bean>
 
     <bean id="commitController"
           class="gitoscope.controller.CommitController"
           scope="request">
-        <property name="projectService" ref="projectServiceId"/>
-        <property name="commitService" ref="commitServiceId"/>
+        <property name="projectService" ref="projectService"/>
+        <property name="commitService" ref="commitService"/>
     </bean>
 
     <bean id="treeBrowserController"
           class="gitoscope.controller.TreeBrowserController"
           scope="request">
-        <property name="projectService" ref="projectServiceId"/>
-        <property name="treeBrowserService" ref="treeBrowserServiceId"/>
+        <property name="projectService" ref="projectService"/>
+        <property name="treeBrowserService" ref="treeBrowserService"/>
     </bean>
 
 </beans>

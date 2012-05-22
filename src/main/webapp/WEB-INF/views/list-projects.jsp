@@ -5,17 +5,19 @@
 <%@ taglib prefix="git" tagdir="/WEB-INF/tags" %>
 <%@ page import="gitoscope.domain.Project" %>
 <%@ page import="java.util.List" %>
-<table class="project-list">
-<tbody>
-	<tr>
-		<th>Name</th>
-		<th>Last Modified</th>
-	</tr>
-	<c:forEach var="project" items="${projectList}">
-	<tr>
-		<td><git:project-url projectName="${project.name}"><c:out value="${project.name}"/></git:project-url>
-		<td><fmt:formatDate pattern="yyyy-MM-dd" value="${project.lastModified}"/></td>
-	</tr>
-	</c:forEach>
-</tbody>
+<table class="table table-stripped project-list">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Last Modified</th>
+    </tr>
+  </thead>
+  <tbody>
+    <c:forEach var="project" items="${projectList}">
+    <tr>
+      <td><git:project-url projectName="${project.name}"><c:out value="${project.name}"/></git:project-url>
+      <td><fmt:formatDate pattern="yyyy-MM-dd" value="${project.lastModified}"/></td>
+    </tr>
+    </c:forEach>
+  </tbody>
 </table>

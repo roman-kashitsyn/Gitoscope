@@ -31,7 +31,7 @@ public class Commit {
     }
 
     public List<Commit> getParents() {
-        List<Commit> parents = new ArrayList();
+        List<Commit> parents = new ArrayList<Commit>();
         for (RevCommit c : commit.getParents()) {
             parents.add(new Commit(c));
         }

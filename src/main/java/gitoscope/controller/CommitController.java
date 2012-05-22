@@ -21,7 +21,7 @@ public class CommitController {
     private CommitService commitService;
     private ProjectService projectService;
 
-    @RequestMapping(value = "/project/{projectName}.git/commit/{commitId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/projects/{projectName}.git/commits/{commitId}", method = RequestMethod.GET)
     public ModelAndView show(
             @PathVariable String projectName,
             @PathVariable String commitId) {
@@ -36,7 +36,7 @@ public class CommitController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/project/{projectName}.git/commit/search.html")
+    @RequestMapping(value = "/projects/{projectName}.git/commits/search.html")
     public ModelAndView search(
             @PathVariable String projectName,
             @RequestParam(value = "max", required = false) Integer max,
@@ -45,7 +45,7 @@ public class CommitController {
             @RequestParam(value = "message", required = false) String message,
             @RequestParam(value = "start", required = false) String start) {
         Project project = projectService.findProjectByName(projectName);
-        int maxResults = (max != null) ? max.intValue() : 0;
+        int maxResults = (max != null) ? max : 0;
         Map<String, String> filterMap = new TreeMap<String, String>();
         if (!nullOrEmpty(message)) filterMap.put("message", message);
         if (!nullOrEmpty(start)) filterMap.put("start", start);
@@ -61,10 +61,12 @@ public class CommitController {
         return modelAndView;
     }
 
+    @SuppressWarnings("unused")
     public void setCommitService(CommitService commitService) {
         this.commitService = commitService;
     }
 
+    @SuppressWarnings("unused")
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
     }

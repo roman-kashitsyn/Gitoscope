@@ -14,13 +14,13 @@ import java.util.List;
 @Controller
 public class ProjectController {
 
-    @RequestMapping(value = "/project/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/projects", method = RequestMethod.GET)
     public ModelAndView list() {
         List<Project> projectList = projectService.listProjects();
         return new ModelAndView("project.list", "projectList", projectList);
     }
 
-    @RequestMapping(value = "/project/{projectName}.git", method = RequestMethod.GET)
+    @RequestMapping(value = "/projects/{projectName}.git", method = RequestMethod.GET)
     public ModelAndView show(@PathVariable String projectName) {
 
         Project project = projectService.findProjectByName(projectName);
@@ -33,6 +33,7 @@ public class ProjectController {
         return modelAndView;
     }
 
+    @SuppressWarnings("unused")
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
     }

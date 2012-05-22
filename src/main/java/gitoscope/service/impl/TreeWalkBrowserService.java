@@ -44,7 +44,7 @@ public class TreeWalkBrowserService implements TreeBrowserService {
             while (walk.next()) {
                 objId = walk.getObjectId(0);
                 objLoader = walk.getObjectReader().open(objId);
-
+                LOG.info("Path for {} is {}", objId, walk.getPathString());
                 objects.add(
                         new BrowseableObject(
                                 ObjectId.toString(objId),

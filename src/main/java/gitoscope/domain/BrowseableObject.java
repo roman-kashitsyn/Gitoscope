@@ -4,14 +4,19 @@ import java.util.Date;
 
 public class BrowseableObject {
 
-    public BrowseableObject(String id, String name, Date lastModified, String mode, long sizeInBytes, boolean isTree) {
+    public BrowseableObject(String id,
+                            String name,
+                            Date lastModified,
+                            String mode,
+                            long sizeInBytes,
+                            boolean isTree) {
         super();
         this.id = id;
         this.name = name;
         this.lastModified = lastModified;
         this.mode = mode;
         this.sizeInBytes = sizeInBytes;
-        this.is_tree = isTree;
+        this.isTree = isTree;
     }
 
     public String getId() {
@@ -39,7 +44,7 @@ public class BrowseableObject {
     }
 
     public boolean isTree() {
-        return is_tree;
+        return isTree;
     }
 
     private String id;
@@ -47,6 +52,6 @@ public class BrowseableObject {
     private String mode;
     private Date lastModified;
     private long sizeInBytes;
-    private boolean is_tree;
+    private boolean isTree;
 
 }
