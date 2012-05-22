@@ -1,15 +1,16 @@
 package gitoscope.service;
 
+import gitoscope.domain.Commit;
+import gitoscope.domain.Project;
+
 import java.util.List;
 import java.util.Map;
-import org.eclipse.jgit.lib.*;
-import gitoscope.domain.*;
 
 public interface CommitService {
 
-	Commit findById(Project project, String id);
+    Commit findById(Project project, String id);
 
-	List<Commit> searchCommits(Project project,
-							   int maxResults,
-							   Map<String, String> filter);
+    List<Commit> searchCommits(Project project,
+                               int maxResults,
+                               Map<String, String> filter);
 }

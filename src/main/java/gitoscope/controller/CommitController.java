@@ -1,13 +1,19 @@
 package gitoscope.controller;
 
-import java.util.*;
-
+import gitoscope.domain.Commit;
+import gitoscope.domain.Project;
+import gitoscope.service.CommitService;
+import gitoscope.service.ProjectService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import gitoscope.domain.*;
-import gitoscope.service.*;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Controller
 public class CommitController {
@@ -41,14 +47,14 @@ public class CommitController {
         Project project = projectService.findProjectByName(projectName);
         int maxResults = (max != null) ? max.intValue() : 0;
         Map<String, String> filterMap = new TreeMap<String, String>();
-        if (message != null) filterMap.put("message", message);
-        if (start != null) filterMap.put("start", start);
-        if (author != null) filterMap.put("author", author);
-        if (committer != null) filterMap.put("committer", committer);
+        if (!nullOrEmpty(message)) filterMap.put("message", message);
+        if (!nullOrEmpty(start)) filterMap.put("start", start);
+        if (!nullOrEmpty(author)) filterMap.put("author", author);
+        if (!nullOrEmpty(committer)) filterMap.put("committer", committer);
 
         List<Commit> commits = commitService.searchCommits(project, maxResults, filterMap);
 
-        ModelAndView modelAndView = new ModelAndView("project.show");
+        ModelAndView modelAndView = new ModelAndView("commit.search");
         modelAndView.addObject("project", project);
         modelAndView.addObject("title", project.getName());
         modelAndView.addObject("commits", commits);
@@ -61,5 +67,9 @@ public class CommitController {
 
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
+    }
+
+    private boolean nullOrEmpty(String param) {
+        return param == null || param.trim().length() == 0;
     }
 }

@@ -1,16 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="git" tagdir="/WEB-INF/tags" %>
-<%@ page import="gitoscope.domain.Project" %>
-<%@ page import="java.util.List" %>
-<h1><c:out value="${project.name}"/></h1>
 <table class="commit-list">
   <tbody>
     <tr>
-      <th>Commit Date</th>
-      <th>Author</th>
-      <th>Message</th>
+      <th><spring:message code="commit.date"/></th>
+      <th><spring:message code="commit.author"/></th>
+      <th><spring:message code="commit.message"/></th>
       <th>&nbsp;</th>
     </tr>
     <c:forEach var="commit" items="${commits}">

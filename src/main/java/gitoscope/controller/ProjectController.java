@@ -1,35 +1,36 @@
 package gitoscope.controller;
 
-import java.util.*;
-
+import gitoscope.domain.Commit;
+import gitoscope.domain.Project;
+import gitoscope.service.ProjectService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import gitoscope.domain.*;
-import gitoscope.service.ProjectService;
+import java.util.List;
 
 @Controller
 public class ProjectController {
 
     @RequestMapping(value = "/project/list", method = RequestMethod.GET)
-    public String list(Model model) {
+    public ModelAndView list() {
         List<Project> projectList = projectService.listProjects();
-        model.addAttribute(projectList);
-        return "project.list";
+        return new ModelAndView("project.list", "projectList", projectList);
     }
 
     @RequestMapping(value = "/project/{projectName}.git", method = RequestMethod.GET)
-    public String show(@PathVariable String projectName, Model model) {
+    public ModelAndView show(@PathVariable String projectName) {
 
         Project project = projectService.findProjectByName(projectName);
         List<Commit> commits = projectService.listCommits(project, null);
 
-        model.addAttribute(project);
-        model.addAttribute("title", project.getName() + ".git");
-        model.addAttribute("commits", commits);
-        return "project.show";
+        ModelAndView modelAndView = new ModelAndView("project.show");
+        modelAndView.addObject("project", project);
+        modelAndView.addObject("title", project.getName() + ".git");
+        modelAndView.addObject("commits", commits);
+        return modelAndView;
     }
 
     public void setProjectService(ProjectService projectService) {
