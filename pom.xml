@@ -28,6 +28,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>12.0</version>
+        </dependency>
+
         <!-- View Dependencies -->
         <dependency>
             <groupId>taglibs</groupId>
@@ -119,8 +125,6 @@
             </exclusions>
             <scope>runtime</scope>
         </dependency>
-
-
     </dependencies>
 
     <repositories>
@@ -158,6 +162,7 @@
                 <configuration>
                     <server>localhost-tomcat</server>
                     <path>/${project.build.finalName}</path>
+                    <port>8000</port>
                 </configuration>
             </plugin>
 

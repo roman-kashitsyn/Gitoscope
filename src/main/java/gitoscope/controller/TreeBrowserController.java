@@ -17,7 +17,7 @@ public class TreeBrowserController {
     private ProjectService projectService;
     private TreeBrowserService treeBrowserService;
 
-    @RequestMapping(value = "/project/{projectName}.git/tree/{treeId}")
+    @RequestMapping(value = "/projects/{projectName}.git/trees/{treeId}")
     public ModelAndView show(
             @PathVariable String projectName,
             @PathVariable String treeId) {
@@ -31,7 +31,7 @@ public class TreeBrowserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/project/{projectName}.git/blob/{blobId}")
+    @RequestMapping(value = "/projects/{projectName}.git/blobs/{blobId}")
     public ModelAndView blob(
             @PathVariable String projectName,
             @PathVariable String blobId) {
@@ -45,12 +45,13 @@ public class TreeBrowserController {
         return modelAndView;
     }
 
+    @SuppressWarnings("unused")
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
     }
 
+    @SuppressWarnings("unused")
     public void setTreeBrowserService(TreeBrowserService treeBrowserService) {
         this.treeBrowserService = treeBrowserService;
     }
-
 }

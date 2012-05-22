@@ -1,8 +1,11 @@
 package gitoscope.service.impl;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import gitoscope.domain.Commit;
 import gitoscope.domain.Project;
 import gitoscope.exception.ProjectNotFoundException;
+import gitoscope.service.ConfigurationService;
 import gitoscope.service.ProjectService;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.LogCommand;
@@ -13,42 +16,35 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 
 public class FileRepositoryService implements ProjectService {
 
-    public static final Logger LOG =
+    private ConfigurationService configurationService;
+    private Cache<String, Project> cachedProjects;
+
+    private static final Logger LOG =
             LoggerFactory.getLogger(FileRepositoryService.class);
 
+    public FileRepositoryService() {
+        this.cachedProjects = CacheBuilder.newBuilder().build();
+    }
+
     public List<Project> listProjects() {
-        if (!isValidDirectory(this.baseDirectory)) {
-            LOG.error("Base directory {} is not a valid directory", baseDirectoryName());
-            return Collections.emptyList();
-        } else {
-            List<Project> projectList = new ArrayList<Project>();
-
-            for (File projectDir : baseDirectory.listFiles()) {
-                Project project = makeProject(projectDir);
-                if (project != null) {
-                    projectList.add(project);
-                }
-            }
-
-            return projectList;
-        }
+        return new ArrayList<Project>(cachedProjects.asMap().values());
     }
 
     public Project findProjectByName(String projectName) {
-        String projectDirPath = baseDirectory.getAbsolutePath() + "/" + projectName;
-        File projectDir = new File(projectDirPath);
-        Project project = makeProject(projectDir);
-        if (project == null) {
-            throw new ProjectNotFoundException(projectName);
-        } else {
-            return project;
+        try {
+            return cachedProjects.get(projectName, new ProjectLoader(projectName));
+        } catch (ExecutionException ex) {
+            if (ex.getCause() instanceof ProjectNotFoundException) {
+                throw (ProjectNotFoundException) ex.getCause();
+            } else {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
@@ -71,14 +67,6 @@ public class FileRepositoryService implements ProjectService {
         return commits;
     }
 
-    private boolean isValidDirectory(File dir) {
-        return
-                dir != null &&
-                        dir.exists() &&
-                        baseDirectory.isDirectory() &&
-                        (baseDirectory.listFiles().length != 0);
-    }
-
     private Project makeProject(File dir) {
         File gitDir = new File(dir.getAbsolutePath() + "/.git");
         if (gitDir.exists() && gitDir.isDirectory()) {
@@ -99,21 +87,46 @@ public class FileRepositoryService implements ProjectService {
         }
     }
 
-    private String baseDirectoryName() {
-        if (baseDirectory != null) {
-            return this.baseDirectory.getName();
-        } else {
-            return "null";
+    @SuppressWarnings("unused")
+    public void setConfigurationService(ConfigurationService configurationService) {
+        this.configurationService = configurationService;
+        prepareCache();
+    }
+
+    private class ProjectLoader implements Callable<Project> {
+
+        private final String projectName;
+
+        ProjectLoader(String projectName) {
+            this.projectName = projectName;
+        }
+
+        public Project call() throws Exception {
+            for (File dir : configurationService.listConfiguredProjectPaths()) {
+                String projectDirPath = dir.getAbsolutePath() + "/" + projectName;
+                File projectDir = new File(projectDirPath);
+                Project project = makeProject(projectDir);
+                if (project != null) {
+                    return project;
+                }
+            }
+            throw new ProjectNotFoundException(projectName);
         }
     }
 
-    public void setBaseDirectory(String name) {
-        baseDirectory = new File(name);
+    private void prepareCache() {
+        Collection<File> dirs = configurationService.listConfiguredProjectPaths();
+        for (File dir : dirs) {
+            File[] files = dir.listFiles();
+            if (files == null) {
+                continue;
+            }
+            for (File projectDir : files) {
+                Project project = makeProject(projectDir);
+                if (project != null) {
+                    cachedProjects.put(project.getName(), project);
+                }
+            }
+        }
     }
-
-    public String getBaseDirectory() {
-        return baseDirectory.getAbsolutePath();
-    }
-
-    private File baseDirectory;
 }

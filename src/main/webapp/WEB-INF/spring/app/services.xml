@@ -4,18 +4,18 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <bean id="projectServiceId"
+    <bean id="projectService"
           class="gitoscope.service.impl.FileRepositoryService"
           scope="singleton">
-        <property name="baseDirectory" value="/home/luyci/Projects/git"/>
+        <property name="configurationService" ref="configurationService"/>
     </bean>
 
-    <bean id="commitServiceId"
+    <bean id="commitService"
           class="gitoscope.service.impl.DefaultCommitService"
           scope="singleton">
     </bean>
 
-    <bean id="treeBrowserServiceId"
+    <bean id="treeBrowserService"
           class="gitoscope.service.impl.TreeWalkBrowserService"
           scope="singleton">
     </bean>
@@ -24,7 +24,7 @@
           class="gitoscope.service.impl.MultiSourceConfigurationService">
         <property name="baseDirectoryNames">
             <list>
-                <value>/home/roman/Projects/git</value>
+                <value>c:/Users/RKashitsyn/Projects/</value>
             </list>
         </property>
     </bean>
