@@ -44,7 +44,6 @@ public class TreeWalkBrowserService implements TreeBrowserService {
             while (walk.next()) {
                 objId = walk.getObjectId(0);
                 objLoader = walk.getObjectReader().open(objId);
-                LOG.info("Path for {} is {}", objId, walk.getPathString());
                 objects.add(
                         new BrowseableObject(
                                 ObjectId.toString(objId),
@@ -74,10 +73,9 @@ public class TreeWalkBrowserService implements TreeBrowserService {
         }
 
         Repository repo = project.getRepository();
-        byte[] bytes = null;
 
         try {
-            bytes = repo.open(blob).getCachedBytes();
+            byte[] bytes = repo.open(blob).getCachedBytes();
             return new String(bytes);
         } catch (Exception e) {
             LOG.error("Blob [{}] not found in project {}", blobId, project.getName());

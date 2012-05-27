@@ -1,5 +1,6 @@
 package gitoscope.controller;
 
+import com.google.common.base.Strings;
 import gitoscope.domain.Commit;
 import gitoscope.domain.Project;
 import gitoscope.service.CommitService;
@@ -47,10 +48,10 @@ public class CommitController {
         Project project = projectService.findProjectByName(projectName);
         int maxResults = (max != null) ? max : 0;
         Map<String, String> filterMap = new TreeMap<String, String>();
-        if (!nullOrEmpty(message)) filterMap.put("message", message);
-        if (!nullOrEmpty(start)) filterMap.put("start", start);
-        if (!nullOrEmpty(author)) filterMap.put("author", author);
-        if (!nullOrEmpty(committer)) filterMap.put("committer", committer);
+        if (!Strings.isNullOrEmpty(message)) filterMap.put("message", message);
+        if (!Strings.isNullOrEmpty(start)) filterMap.put("start", start);
+        if (!Strings.isNullOrEmpty(author)) filterMap.put("author", author);
+        if (!Strings.isNullOrEmpty(committer)) filterMap.put("committer", committer);
 
         List<Commit> commits = commitService.searchCommits(project, maxResults, filterMap);
 
@@ -69,9 +70,5 @@ public class CommitController {
     @SuppressWarnings("unused")
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
-    }
-
-    private boolean nullOrEmpty(String param) {
-        return param == null || param.trim().length() == 0;
     }
 }

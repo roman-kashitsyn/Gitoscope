@@ -2,6 +2,7 @@ package gitoscope.service;
 
 import gitoscope.domain.Commit;
 import gitoscope.domain.Project;
+import org.eclipse.jgit.diff.DiffEntry;
 
 import java.util.List;
 import java.util.Map;

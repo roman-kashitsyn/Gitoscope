@@ -1,8 +1,3 @@
-<<<<<<< HEAD
 target/
 .idea/
-=======
-/target
-.idea
->>>>>>> 1da5fcdee26564b62ba2a667d8bc7572d53c287c
 *.iml
