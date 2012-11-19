@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="git" tagdir="/WEB-INF/tags" %>
 
-<link rel="stylesheet" href="<c:url value='/resources/highlight/github.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/prettify/prettify.css'/>">
 
 <h2>
   <git:project-url projectName="${project.name}"><c:out value="${project.name}"/></git:project-url>
@@ -10,9 +10,11 @@
 
 <hr>
 
-<pre><code><c:out value="${text}"/></code></pre>
+<pre><code class="prettyprint"><c:out value="${text}"/></code></pre>
 
-<script src="<c:url value='/resources/highlight/highlight.pack.js'/>"></script>
+<script src="<c:url value='/resources/prettify/prettify.js'/>" type="text/javascript"></script>
 <script>
-     hljs.initHighlightingOnLoad();
+    (function($) {
+        prettyPrint();  
+    })(jQuery);
 </script>

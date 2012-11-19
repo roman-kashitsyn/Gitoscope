@@ -8,8 +8,9 @@
 <html>
   <head>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-    <link rel="stylesheet" href="<c:url value="/resources/css/main.css"/>">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/main.css"/>">
     <link href="<c:url value='/resources/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <style type="text/css">
     body {
       padding-top: 60px;
@@ -44,7 +45,6 @@
     <div class="container">
       <tiles:insertAttribute name="content"/>
     </div>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="<c:url value='/resources/bootstrap/css/bootstrap.min.js'/>"></script>
+    <script src="<c:url value='/resources/bootstrap/js/bootstrap.min.js'/>"></script>
   </body>
 </html>
