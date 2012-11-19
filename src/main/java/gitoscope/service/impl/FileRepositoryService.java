@@ -70,7 +70,11 @@ public class FileRepositoryService implements ProjectService {
     private Project makeProject(File dir) {
         File gitDir = new File(dir.getAbsolutePath() + "/.git");
         if (gitDir.exists() && gitDir.isDirectory()) {
+            // It is a development repository
             return makeProjectFromGitDirectory(gitDir);
+        } else if (dir.getName().endsWith(".git")) {
+            // It is a bare repository
+            return makeProjectFromGitDirectory(dir);
         } else {
             LOG.warn("{} is not a valid git directory", gitDir.getAbsolutePath());
             return null;
