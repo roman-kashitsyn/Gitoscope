@@ -15,7 +15,7 @@
         <slf4j.version>1.5.10</slf4j.version>
         <java.version>1.5</java.version>
         <jstl.version>1.2</jstl.version>
-        <jgit.version>1.3.0.201202151440-r</jgit.version>
+        <jgit.version>2.1.0.201209190230-r</jgit.version>
         <junit.version>4.8.2</junit.version>
     </properties>
 

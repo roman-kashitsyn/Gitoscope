@@ -7,13 +7,16 @@ import java.util.Date;
 
 public class Project {
 
-    public Project(Repository repository) {
+    private final Repository repository;
+    private final String name;
+
+    public Project(String name, Repository repository) {
         this.repository = repository;
+        this.name = name;
     }
 
     public String getName() {
-        File baseDirectory = repository.getWorkTree();
-        return baseDirectory.getName();
+        return name;
     }
 
     public Person getOwner() {
@@ -27,6 +30,4 @@ public class Project {
     public Repository getRepository() {
         return repository;
     }
-
-    private Repository repository;
 }

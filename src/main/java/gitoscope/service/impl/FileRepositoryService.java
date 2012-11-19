@@ -69,12 +69,12 @@ public class FileRepositoryService implements ProjectService {
 
     private Project makeProject(File dir) {
         File gitDir = new File(dir.getAbsolutePath() + "/.git");
-        if (gitDir.exists() && gitDir.isDirectory()) {
-            // It is a development repository
-            return makeProjectFromGitDirectory(gitDir);
-        } else if (dir.getName().endsWith(".git")) {
+        if (dir.getName().endsWith(".git")) {
             // It is a bare repository
             return makeProjectFromGitDirectory(dir);
+        } else if (gitDir.exists() && gitDir.isDirectory()) {
+            // It is a development repository
+            return makeProjectFromGitDirectory(gitDir);
         } else {
             LOG.warn("{} is not a valid git directory", gitDir.getAbsolutePath());
             return null;
@@ -85,9 +85,19 @@ public class FileRepositoryService implements ProjectService {
         try {
             FileRepositoryBuilder builder = new FileRepositoryBuilder();
             Repository repo = builder.setGitDir(gitDir).build();
-            return new Project(repo);
+            String name = gitDir.getName();
+            return new Project(name, repo);
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    private static String cutOffDotGit(String dirName) {
+        int indexOfDotGit = dirName.indexOf(".git");
+        if (indexOfDotGit > 0) {
+            return dirName.substring(0, indexOfDotGit);
+        } else {
+            return dirName;
         }
     }
 
