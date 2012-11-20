@@ -22,11 +22,7 @@
 
     <bean id="configurationService"
           class="gitoscope.service.impl.MultiSourceConfigurationService">
-        <property name="baseDirectoryNames">
-            <list>
-                <value>c:/Users/RKashitsyn/Projects/</value>
-            </list>
-        </property>
+        <property name="baseDirectory" value="#{app.basePath}"/>
     </bean>
 
 </beans>

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Looking for configured paths in Spring bean configuration and
@@ -16,18 +18,22 @@ import java.util.Collections;
  */
 public class MultiSourceConfigurationService implements ConfigurationService {
 
-    private Collection<String> baseDirectoryNames;
+    private String baseDirectory;
+
+    private static final Logger LOG =
+            LoggerFactory.getLogger(MultiSourceConfigurationService.class);
 
     public Collection<File> listConfiguredProjectPaths() {
         Collection<String> candidates = new ArrayList<String>();
-        candidates.addAll(baseDirectoryNames);
+        candidates.add(baseDirectory);
         candidates.addAll(listPropertiesDirs());
         candidates.addAll(listEnvironmentDirs());
         return filterValidDirectories(candidates);
     }
 
-    public void setBaseDirectoryNames(Collection<String> baseDirectoryNames) {
-        this.baseDirectoryNames = baseDirectoryNames;
+    public void setBaseDirectory(String baseDirectory) {
+        LOG.info("Setting base directory to {}", baseDirectory);
+        this.baseDirectory = baseDirectory;
     }
 
     private Collection<String> listPropertiesDirs() {
@@ -46,12 +52,14 @@ public class MultiSourceConfigurationService implements ConfigurationService {
 
     private Collection<File> filterValidDirectories(Collection<String> dirNames) {
         if (dirNames == null || dirNames.isEmpty()) {
+            LOG.warn("No configured directories found");
             return Collections.emptyList();
         }
         Collection<File> validDirs = new ArrayList<File>(dirNames.size());
         for (String dirName : dirNames) {
             File dirToTest = new File(dirName);
             if (dirToTest.exists() && dirToTest.isDirectory()) {
+                LOG.info("Using directory {} for project discovery", dirName);
                 validDirs.add(dirToTest);
             }
         }

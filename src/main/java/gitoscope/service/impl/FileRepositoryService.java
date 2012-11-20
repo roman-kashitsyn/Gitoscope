@@ -86,7 +86,7 @@ public class FileRepositoryService implements ProjectService {
             FileRepositoryBuilder builder = new FileRepositoryBuilder();
             Repository repo = builder.setGitDir(gitDir).build();
             String name = gitDir.getName();
-            return new Project(name, repo);
+            return new Project(cutOffDotGit(name), repo);
         } catch (Exception e) {
             return null;
         }
